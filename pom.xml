@@ -1,0 +1,9 @@
+﻿<!--
+POM base para banquito-switch-routing-service
+
+groupId: com.banquito
+artifactId: switch.routing-service
+package base: com.banquito.switchpagos.routing
+
+Codex deberá completar este archivo con Spring Boot, Java 21 y las dependencias necesarias.
+-->
