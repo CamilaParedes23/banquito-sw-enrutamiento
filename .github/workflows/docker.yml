@@ -1,6 +1,7 @@
 name: Build & Push DockerHub Image
 
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Java CI with Maven"]
     types:
@@ -8,7 +9,7 @@ on:
 
 jobs:
   docker:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +29,8 @@ jobs:
       - name: Push image
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/banquito-sw-enrutamiento:latest
-            - name: Trigger Infra Deploy
+
+      - name: Trigger Infra Deploy
         run: |
           curl -f -i -X POST \
             -H "Authorization: Bearer ${{ secrets.DEVOPS_TOKEN }}" \
